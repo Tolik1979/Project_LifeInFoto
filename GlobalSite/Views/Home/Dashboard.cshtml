@@ -1,0 +1,25 @@
+﻿@model GlobalSite.Models.ApplicationUser
+
+@{
+	ViewBag.Title = "Dashboard";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Панель управления</h2>
+<h4>Пользователь: @Html.DisplayFor(model => model.Email)</h4>
+<hr />
+<div>
+	<div class="btn btn-default">
+		@Html.ActionLink("Редактировать личные данные", "EditPersonalData")
+	</div>
+	<br />
+
+	@using (Html.BeginForm())
+	{
+		<div class="form-horizontal">
+			<div>
+				@{Html.RenderAction("ListAlbum", "Album");}
+			</div>
+		</div>
+	}
+</div>

@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<GlobalSite.Models.Photo>
+@using PagedList.Mvc;
+
+@{
+	ViewBag.Title = "";
+	Layout = "~/Views/Shared/_CartLayout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+	<div class="container" style="outline: 1px solid gray">
+		<div class="row">
+
+			<div class="col-xs-9">
+				<h2>
+					<strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+				</h2>
+				<div style="margin-bottom:15px;">
+					@Html.Raw("<img class='img-thumbnail' src=\"data:image/jpeg;base64,"
+						+ Convert.ToBase64String(item.Image) + "\" />")
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<h2 class="pull-right">
+					<strong class="pull-right label label-primary">
+						Цена: @Html.DisplayFor(modelItem => item.Price) грн.
+					</strong>
+				</h2>
+
+				@using (Html.BeginForm("AddToCart", "Cart", new { id = item.Id }))
+				{
+					<div class="pull-right">
+						@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+						<input type="submit" class="btn btn-success" value="Добавить в корзину" />
+					</div>
+				}
+				<br />
+				<h4>
+					<span style="display:inline-block; margin-top: 5%">@Html.DisplayFor(modelItem => item.Description)</span>
+				</h4>
+			</div>
+		</div>
+	</div>
+	<br />
+}
+
+<div class="text-center">
+	Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+	@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

@@ -1,0 +1,51 @@
+﻿@model GlobalSite.Models.Photo
+
+@{
+	ViewBag.Title = "DeletePhoto";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление фотографии</h2>
+
+<h3>Вы уверенны что хотите удалить эту фотографию?</h3>
+<div>
+	<h4>Photo</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Price)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Price)
+		</dd>
+
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Удалить" class="btn btn-default" />
+		</div>
+		<br />
+		@Html.ActionLink("Вернуться в редактирование альбома", "EditAlbum", new { id = Model.AlbumId })
+	}
+</div>

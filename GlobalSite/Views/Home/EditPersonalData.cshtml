@@ -1,0 +1,133 @@
+﻿@model GlobalSite.Models.ApplicationUser
+
+@{
+	ViewBag.Title = "EditPersonalData";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редактирование личных данных</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<h4>Пользователь: @Html.DisplayFor(model => model.Email)</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Id)
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+				<div>
+					@if (TempData["lastName"] != null)
+					{
+						<p>@TempData["lastName"]</p>
+					}
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Facebook, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Facebook, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Facebook, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Instagram, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Instagram, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Instagram, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		@Html.HiddenFor(model => model.SecurityString)
+		@*<div class="form-group">
+					@Html.LabelFor(model => model.SecurityString, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.SecurityString, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.SecurityString, "", new { @class = "text-danger" })
+					</div>
+			</div>*@
+
+		@Html.HiddenFor(model => model.CardNumber)
+		@*<div class="form-group">
+				@Html.LabelFor(model => model.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.CardNumber, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
+				</div>
+			</div>*@
+
+		@Html.HiddenFor(model => model.Email)
+		@*<div class="form-group">
+				@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
+			</div>*@
+
+		@Html.HiddenFor(model => model.EmailConfirmed)
+
+		@Html.HiddenFor(model => model.PasswordHash)
+
+		@Html.HiddenFor(model => model.SecurityStamp)
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		@Html.HiddenFor(model => model.PhoneNumberConfirmed)
+
+		@Html.HiddenFor(model => model.TwoFactorEnabled)
+
+		@Html.HiddenFor(model => model.LockoutEndDateUtc)
+
+		@Html.HiddenFor(model => model.LockoutEnabled)
+
+		@Html.HiddenFor(model => model.AccessFailedCount)
+
+		@Html.HiddenFor(model => model.UserName)
+		@*<div class="form-group">
+				@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+				</div>
+			</div>*@
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Сохранить изменения" class="btn btn-default" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="button" value="Изменить пароль" class="btn btn-default" onclick="change()" />
+			</div>
+		</div>
+	</div>
+}
+<br />
+<br />
+<div>
+	@Html.ActionLink("Вернуться в панель управления", "Dashboard")
+</div>
+
+<script type="text/javascript">
+	function change() {
+		window.location.assign('@Url.Action("ChangePassword", "Manage")');
+	}
+</script>

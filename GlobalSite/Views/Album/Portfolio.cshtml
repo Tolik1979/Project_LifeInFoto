@@ -1,0 +1,74 @@
+﻿@model IEnumerable<GlobalSite.Models.Photo>
+
+@{
+	ViewBag.Title = "Portfolio";
+	Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Portfolio</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="@Url.Content("~/Content/PortfolioTemplate/")assets/css/main.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	<noscript><link rel="stylesheet" href="@Url.Content("~/Content/PortfolioTemplate/")assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-loading-0 is-loading-1 is-loading-2">
+	<!-- Main -->
+	<div id="main">
+		<!-- Header -->
+		<header id="header">
+			<div class="logohead">
+				<img src="@Url.Content("~/Content/PortfolioTemplate/")images/logo.png" alt="" width="150">
+			</div>
+			<h1 class="text-center">Portfolio</h1>
+			@*<p class="text-center">Just another Responsive Site by <a href="http://themewagon.com">Themewagon</a></p>*@
+
+			<ul class="icons text-center">
+				@if (ViewBag.facebook != null)
+				{
+					<li><a href=@ViewBag.facebook class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+				}
+				@if (ViewBag.instagram != null)
+				{
+					<li><a href=@ViewBag.instagram class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+				}
+			</ul>
+
+		</header>
+		<!-- Thumbnail -->
+		<section id="thumbnails">
+
+			@foreach (var item in Model)
+			{
+				<article>
+					@Html.Raw("<a href=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Image) + "\" class='thumbnail' >")@Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(item.Image) + "\" /></a>")
+					<h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+					<p>@Html.DisplayFor(modelItem => item.Description)</p>
+				</article>
+			}
+
+		</section>
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="copyright text-center">
+				<li>&copy; Click</li>
+				<li>Design: <a href="http:themewagon.com">Themewagon</a></li>
+
+			</ul>
+		</footer>
+	</div>
+	<!-- Scripts -->
+	<script src="@Url.Content("~/Content/PortfolioTemplate/")assets/js/jquery.min.js"></script>
+	<script src="@Url.Content("~/Content/PortfolioTemplate/")assets/js/skel.min.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="@Url.Content("~/Content/PortfolioTemplate/")assets/js/main.js"></script>
+	<script type="text/javascript">
+		$('.toggle').click(function () {
+			$('.caption').toggle();
+		})</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿@model GlobalSite.Models.ShoppingCart
+
+@{
+	Layout = null;
+}
+
+<div class="navbar-right">
+	@Html.ActionLink("Корзина", "YourShoppingCart", "Cart",
+	new { returnUrl = Request.Url.PathAndQuery },
+	new { @class = "btn btn-default navbar-btn" })
+</div>
+
+<div class="navbar-text navbar-right" style="margin-right:20px">
+	<b>Ваша корзина:</b>
+	@Model.Lines.Sum(x => x.Quantity) фото,
+	@(Model.PriceTotalValue().ToString() + " грн. ")
+</div>

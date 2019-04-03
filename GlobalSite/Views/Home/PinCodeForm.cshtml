@@ -1,0 +1,40 @@
+﻿@model GlobalSite.Models.GuestResponse
+
+@{
+	ViewBag.Title = "PinCodeForm";
+}
+
+<div class="panel-success">
+	<h4>Введите в поле пин код с визитки</h4>
+	<div class="panel-body">
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
+
+			<div style="margin:0 auto;">
+				@*data-sitekey можно найти в личном кабинете на сайте www.google.com/recaptcha*@
+				<div class="g-recaptcha" data-sitekey="*****"></div>
+			</div><br />
+			<div class="form-group">
+				@if (TempData["recaptcha"] != null)
+				{
+					<p>@TempData["recaptcha"]</p>
+				}
+			</div>
+			@Html.ValidationSummary()
+			<div class="form-group">
+				<label>Пин код:</label>
+				@Html.TextBoxFor(x => x.PinCode, new { @class = "form-control form-group" })
+			</div>
+			<div class="form-group">
+				@if (TempData["pincode"] != null)
+				{
+					<p>@TempData["pincode"]</p>
+				}
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Перейти в альбом" class="btn btn-success" />
+			</div>
+		}
+	</div>
+</div>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GlobalSite.Models.Photo>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>DownloadPhoto</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+	<div class="container body-content">
+		<h2>Ваши фотографии</h2>
+
+		@using (Html.BeginForm("DownloadFile", "Cart"))
+		{
+			<input type="hidden" id="hfFileId" name="Id" />
+			<input type="submit" id="btnDownload" value="Download" style="display:none" />
+		}
+
+		<table id="cartTable" class="table table-hover">
+			<thead>
+				<tr>
+					<th class="text-left">Название</th>
+					<th class="text-center">Фото</th>
+					<th class="text-right">Жми кнопку</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.Count() > 0)
+				{
+					foreach (var file in Model)
+					{
+						<tr>
+							<td class="text-left">@file.Name</td>
+							<td class="text-center">
+								@Html.Raw("<img style='width:80px; height:60px;' src=\"data:image/jpeg;base64," + Convert.ToBase64String(file.Image) + "\" />")
+							</td>
+							<td class="text-right">
+								<a href="javascript:;" onclick="DownloadFile(@file.Id)" class="btn btn-sm btn-warning">Загрузить</a>
+							</td>
+						</tr>
+					}
+				}
+				else
+				{
+					<tr>
+						<td colspan="3">&nbsp;</td>
+					</tr>
+				}
+
+			</tbody>
+		</table>
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+		</footer>
+	</div>
+
+	<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+		function DownloadFile(fileId) {
+			$("#hfFileId").val(fileId);
+			$("#btnDownload")[0].click();
+		};
+	</script>
+
+</body>
+</html>

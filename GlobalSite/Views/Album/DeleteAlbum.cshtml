@@ -1,0 +1,43 @@
+﻿@model GlobalSite.Models.Album
+
+@{
+    ViewBag.Title = "DeleteAlbum";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление альбома</h2>
+
+<h3>Вы действительно хотите удалить альбом @Html.DisplayFor(model => model.Name)?</h3>
+<div>
+	<h4></h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+		<br />
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+	</dl>
+	<br />
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Delete" class="btn btn-default" />
+		</div>
+	}
+	<br />
+	<br />
+	@Html.ActionLink("Вернуться в панель управления", "Dashboard", "Home")
+</div>
